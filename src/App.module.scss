@@ -1,0 +1,22 @@
+.App{
+
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+.searchWrapper{
+  display: flex;
+  .style{
+    width: 200px;
+  }
+  .type{
+    width: 200px;
+  }
+}
+.contentWrapper{
+  width: 845px;
+  margin-top: 50px;
+}
