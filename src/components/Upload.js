@@ -3,15 +3,15 @@ import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 
-// function getBase64(img, callback) {
-//     const reader = new FileReader();
-//     reader.addEventListener('load', () => callback(reader.result));
-//     reader.readAsDataURL(img);
-// }
-//
+const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+        onSuccess("ok");
+    }, 0);
+};
 // function beforeUpload(file) {
 //     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 //     if (!isJpgOrPng) {
+//         console.log(5656565)
 //         message.error('You can only upload JPG/PNG file!');
 //     }
 //     const isLt2M = file.size / 1024 / 1024 < 2;
@@ -24,34 +24,27 @@ import ImgCrop from 'antd-img-crop';
 
 
 const UploadFun=(props)=> {
-    // const [state, setState] = useState(false)
     const {fileList, setFileList} = props
-    // const [fileList, setFileList] = useState([
-    //     {
-    //         uid: '-1',
-    //         name: 'image.png',
-    //         status: 'done',
-    //         url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    //     },
-    // ]);
+
 
     const onChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
     };
 
-
+    console.log(fileList)
     return (
         <div>
-            <ImgCrop rotate>
+            {/*<ImgCrop rotate>*/}
                 <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    customRequest={dummyRequest}
                     listType="picture-card"
                     fileList={fileList}
                     onChange={onChange}
+                    multiple
                 >
                     {fileList.length < 5 && '+ Upload'}
                 </Upload>
-            </ImgCrop>
+            {/*</ImgCrop>*/}
         </div>
     )
 }

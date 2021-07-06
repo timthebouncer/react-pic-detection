@@ -1,9 +1,11 @@
 import styles from "../App.module.scss";
 import React,{useState} from 'react'
-
+import {CheckOutlined,CloseOutlined} from '@ant-design/icons';
 
 const Table = (props) =>{
     console.log(props,'Table')
+
+
     return(
         <div style={{marginBottom:50}}>
             <table className={styles.contentWrapper}>
@@ -23,6 +25,9 @@ const Table = (props) =>{
                                 <td>{item.name}</td>
                                 <td>{item.size}</td>
                                 <td>{item.type}</td>
+                                {
+                                    props.result !== ''?(<td>{props.result === true ? <CheckOutlined />:<CloseOutlined />}</td>):''
+                                }
                             </tr>
                         )
                     })
