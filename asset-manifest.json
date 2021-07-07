@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/react-pic-detection/static/css/main.47461a44.chunk.css",
+    "main.js": "/react-pic-detection/static/js/main.e1cfab30.chunk.js",
+    "main.js.map": "/react-pic-detection/static/js/main.e1cfab30.chunk.js.map",
+    "runtime-main.js": "/react-pic-detection/static/js/runtime-main.c3565e70.js",
+    "runtime-main.js.map": "/react-pic-detection/static/js/runtime-main.c3565e70.js.map",
+    "static/css/2.ba8a8a05.chunk.css": "/react-pic-detection/static/css/2.ba8a8a05.chunk.css",
+    "static/js/2.1af990d6.chunk.js": "/react-pic-detection/static/js/2.1af990d6.chunk.js",
+    "static/js/2.1af990d6.chunk.js.map": "/react-pic-detection/static/js/2.1af990d6.chunk.js.map",
+    "static/js/3.2a1054c2.chunk.js": "/react-pic-detection/static/js/3.2a1054c2.chunk.js",
+    "static/js/3.2a1054c2.chunk.js.map": "/react-pic-detection/static/js/3.2a1054c2.chunk.js.map",
+    "index.html": "/react-pic-detection/index.html",
+    "static/css/2.ba8a8a05.chunk.css.map": "/react-pic-detection/static/css/2.ba8a8a05.chunk.css.map",
+    "static/css/main.47461a44.chunk.css.map": "/react-pic-detection/static/css/main.47461a44.chunk.css.map",
+    "static/js/2.1af990d6.chunk.js.LICENSE.txt": "/react-pic-detection/static/js/2.1af990d6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c3565e70.js",
+    "static/css/2.ba8a8a05.chunk.css",
+    "static/js/2.1af990d6.chunk.js",
+    "static/css/main.47461a44.chunk.css",
+    "static/js/main.e1cfab30.chunk.js"
+  ]
+}
