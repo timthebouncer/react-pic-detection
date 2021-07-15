@@ -3,7 +3,6 @@ import React,{useState} from 'react'
 import {CheckOutlined,CloseOutlined} from '@ant-design/icons';
 
 const Table = (props) =>{
-    console.log(props,'Table')
 
 
     return(

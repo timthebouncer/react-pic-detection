@@ -31,7 +31,6 @@ const UploadFun=(props)=> {
         setFileList(newFileList);
     };
 
-    console.log(fileList)
     return (
         <div>
             {/*<ImgCrop rotate>*/}

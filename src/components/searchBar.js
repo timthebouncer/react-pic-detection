@@ -1,38 +1,48 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import styles from "../App.module.scss";
-import { Select, Input, Button } from 'antd';
+import { Tag, Select, Input, Button,message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import rule from './rule'
+import NameSelection from "./NameSelection";
 
 
 const { Option } = Select;
 
-function checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState) {
+function checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameState) {
   let getRule = rule[''+selectStyle + selectType]
 
-  if(typeof getRule === 'object'){
-   let getRuleName = sizeListState.filter(item=> {
-     return item.id === size
-    })
-    if(getRule[getRuleName[0].name] === fileList[0].size){
-      setResult(true)
-    }else {
-      setResult(false)
-    }
+  if(fileList.length <= 0){
+    message.error('請先上傳照片')
+
   }else {
-    if(getRule === fileList[0].size){
-      setResult(true)
+    if(typeof getRule === 'object'){
+      let getRuleName = sizeListState.filter(item=> {
+        return item.id === size
+      })
+      if(getRule[getRuleName[0].name] === fileList[0].size){
+        setResult(true)
+      }else {
+        setResult(false)
+      }
     }else {
-      setResult(false)
+      if(getRule === fileList[0].size){
+        setResult(true)
+      }else {
+        setResult(false)
+      }
     }
   }
 }
 
 
+
 const SearchBar = (props) =>{
-    const {fileList, state, stateStyle, setResult, sizeListState} = props
+
+    const {fileList, state, stateStyle, setResult, sizeListState, nameState, setName} = props
     const [selectStyle, setSelectStyle] = useState('')
     const [selectType, setSelectType] = useState('')
     const [size, sizeSelect] = useState('')
+
     return(
         <div className={styles.searchWrapper}>
             <div style={{margin:10}}>
@@ -74,8 +84,10 @@ const SearchBar = (props) =>{
                 }
             </Select>
             </div>
-            <div style={{margin:10}}><Input placeholder={"命名"} /></div>
-            <div style={{margin:10}}><Button onClick={()=>checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState)}>開始檢測</Button></div>
+            <div style={{margin:10}}>
+              <NameSelection nameState={nameState} setName={setName} />
+            </div>
+            <div style={{margin:10}}><Button onClick={()=>checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameState)}>開始檢測</Button></div>
         </div>
     )
 }

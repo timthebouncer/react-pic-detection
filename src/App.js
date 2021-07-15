@@ -18,6 +18,7 @@ const sizeList = [{id:1,name:'iOS-2x'},{id:2,name:'iOS-3x'},{id:3,name:'android-
   {id:5,name:'xxhdpi'},{id:6,name:'xxxhdpi'},{id:7,name:'2x'},{id:8,name:'3x'}
 ]
 
+
 function App() {
 
     const [state, setState] = useState([]);
@@ -25,20 +26,19 @@ function App() {
     const [sizeListState, setSizeList] = useState([])
     const [fileList, setFileList] = useState([])
     const [result, setResult] = useState('')
+    const [nameState, setName] = useState({ items: [], name: ''})
     useEffect(
         function () {
-
                 setFileList(fileList);
                 setState(typeList);
                 setStyle(styleList)
                 setSizeList(sizeList)
         }, []);
 
-
   return (
     <div className={styles.App}>
         <div className={styles.container}>
-            <SearchBar fileList={fileList} state={state} stateStyle={stateStyle} sizeListState={sizeListState} result={result} setResult={setResult} />
+            <SearchBar fileList={fileList} state={state} stateStyle={stateStyle} sizeListState={sizeListState} result={result} setResult={setResult} nameState={nameState} setName={setName}/>
             <Table state={fileList} setState={setFileList} result={result} />
             <div className={styles.uploadWrapper}>
                 <UploadFun fileList={fileList} setFileList={setFileList} />
