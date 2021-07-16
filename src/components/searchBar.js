@@ -1,35 +1,42 @@
 import React,{useState, useEffect} from 'react'
 import styles from "../App.module.scss";
-import { Tag, Select, Input, Button,message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Select, Input, Button,message } from 'antd';
 import rule from './rule'
 import NameSelection from "./NameSelection";
 
 
 const { Option } = Select;
 
-function checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameState) {
+function checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameList) {
   let getRule = rule[''+selectStyle + selectType]
+  console.log(nameList.items,6699)
+  const {items} = nameList
 
   if(fileList.length <= 0){
     message.error('請先上傳照片')
 
   }else {
-    if(typeof getRule === 'object'){
-      let getRuleName = sizeListState.filter(item=> {
-        return item.id === size
-      })
-      if(getRule[getRuleName[0].name] === fileList[0].size){
-        setResult(true)
+    console.log(fileList[0].name)
+    let isName = items.some(item => item === fileList[0].name)
+    if(isName){
+      if(typeof getRule === 'object'){
+        let getRuleName = sizeListState.filter(item=> {
+          return item.id === size
+        })
+        if(getRule[getRuleName[0].name] === fileList[0].size){
+          setResult(true)
+        }else {
+          setResult(false)
+        }
       }else {
-        setResult(false)
+        if(getRule === fileList[0].size){
+          setResult(true)
+        }else {
+          setResult(false)
+        }
       }
     }else {
-      if(getRule === fileList[0].size){
-        setResult(true)
-      }else {
-        setResult(false)
-      }
+     message.error("命名不匹配")
     }
   }
 }
@@ -38,7 +45,7 @@ function checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListSta
 
 const SearchBar = (props) =>{
 
-    const {fileList, state, stateStyle, setResult, sizeListState, nameState, setName} = props
+    const {fileList, state, stateStyle, setResult, sizeListState, nameState, setName, nameList, setNameList} = props
     const [selectStyle, setSelectStyle] = useState('')
     const [selectType, setSelectType] = useState('')
     const [size, sizeSelect] = useState('')
@@ -85,9 +92,9 @@ const SearchBar = (props) =>{
             </Select>
             </div>
             <div style={{margin:10}}>
-              <NameSelection nameState={nameState} setName={setName} />
+              <NameSelection nameState={nameState} setName={setName} nameList={nameList} setNameList={setNameList} />
             </div>
-            <div style={{margin:10}}><Button onClick={()=>checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameState)}>開始檢測</Button></div>
+            <div style={{margin:10}}><Button onClick={()=>checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameList)}>開始檢測</Button></div>
         </div>
     )
 }

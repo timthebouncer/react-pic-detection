@@ -6,10 +6,10 @@ const { Option } = Select;
 
 let index = 0;
 
-const NameSelection=({nameState,setName})=> {
+const NameSelection=({nameState,setName,nameList,setNameList})=> {
   const {items, name} = nameState
 
-  const onNameChange= event => {
+  const onNameChange= (event) => {
     setName({...nameState, name: event.target.value});
   };
 
@@ -20,11 +20,16 @@ const NameSelection=({nameState,setName})=> {
       name: '',
     });
   };
+  const onNameSelect= (e) =>{
+    console.log(e)
+    setNameList({...nameList, items: e})
+  }
   return (
     <Select
       mode="multiple"
       style={{ width: 240 }}
       placeholder="命名"
+      onChange={(e)=>onNameSelect(e)}
       dropdownRender={menu => (
         <div>
           {menu}
