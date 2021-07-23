@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {CheckOutlined, CloseOutlined} from '@ant-design/icons';
 
 const Table = (props) => {
-
+  console.log(props.state)
   return (
     <div style={{marginBottom: 50}}>
       <table className={styles.contentWrapper}>
@@ -17,15 +17,12 @@ const Table = (props) => {
         </thead>
         <tbody style={{textAlign: 'center'}}>
         {
-          props.state.map(item => {
+          !!props.state.length && props.state.map(item => {
             return (
               <tr key={item.uid}>
                 <td>{item.name}</td>
                 <td>{item.size}</td>
                 <td>{item.type}</td>
-                {/*{*/}
-                {/*    item.isPass !== null ?( <td>{item.isPass === true ? <CheckOutlined />:<CloseOutlined />}</td>):''*/}
-                {/*}*/}
                 {
                   item.isPass !== null &&
                   <td>{item.isPass ? <CheckOutlined/> : <CloseOutlined/>} </td>

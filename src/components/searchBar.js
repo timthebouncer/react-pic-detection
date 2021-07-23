@@ -34,19 +34,19 @@ const SearchBar = (props) =>{
       message.error('請先上傳照片')
     }else {
       data = data.map((item,idx) =>{
-        let s = items.filter(name => {
+        let getName = items.filter(name => {
           return item.name.includes(name)
         })
-
+        console.log(getName)
         let getRuleName = sizeListState.filter(item=> {
           return item.id === size
         })
-        if(s.length && typeof getRule === 'object' && getRule[getRuleName[idx].name] === fileList[idx].size){
+        if(getName.length && typeof getRule === 'object' && getRule[getRuleName[idx].name] === fileList[idx].size){
           return {
             ...item,
             isPass:true
           }
-        }else if(getRuleName.length === 0){
+        }else if(getName.length && getRuleName.length === 0){
           if(getRule === fileList[idx].size)
           return {
             ...item,
