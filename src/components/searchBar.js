@@ -7,49 +7,62 @@ import NameSelection from "./NameSelection";
 
 const { Option } = Select;
 
-function checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameList) {
-  let getRule = rule[''+selectStyle + selectType]
-  console.log(nameList.items,6699)
-  const {items} = nameList
 
-  if(fileList.length <= 0){
-    message.error('請先上傳照片')
-
-  }else {
-    console.log(fileList[0].name)
-    let isName = items.some(item => item === fileList[0].name)
-    if(isName){
-      if(typeof getRule === 'object'){
-        let getRuleName = sizeListState.filter(item=> {
-          return item.id === size
-        })
-        if(getRule[getRuleName[0].name] === fileList[0].size){
-          setResult(true)
-        }else {
-          setResult(false)
-        }
-      }else {
-        if(getRule === fileList[0].size){
-          setResult(true)
-        }else {
-          setResult(false)
-        }
-      }
-    }else {
-     message.error("命名不匹配")
-    }
-  }
-}
 
 
 
 const SearchBar = (props) =>{
 
-    const {fileList, state, stateStyle, setResult, sizeListState, nameState, setName, nameList, setNameList} = props
+    const {fileList,setFileList, state, stateStyle, sizeListState, nameState, setName, nameList, setNameList} = props
     const [selectStyle, setSelectStyle] = useState('')
     const [selectType, setSelectType] = useState('')
     const [size, sizeSelect] = useState('')
 
+
+  console.log(fileList)
+  const checkPicture = () =>{
+    const {items} = nameList
+
+    let data = [...fileList]
+    let a = []
+
+    let getRule = rule[''+selectStyle + selectType]
+
+
+
+    if(fileList.length <= 0){
+      message.error('請先上傳照片')
+    }else {
+      data = data.map((item,idx) =>{
+        let s = items.filter(name => {
+          return item.name.includes(name)
+        })
+
+        let getRuleName = sizeListState.filter(item=> {
+          return item.id === size
+        })
+        if(s.length && typeof getRule === 'object' && getRule[getRuleName[idx].name] === fileList[idx].size){
+          return {
+            ...item,
+            isPass:true
+          }
+        }else if(getRuleName.length === 0){
+          if(getRule === fileList[idx].size)
+          return {
+            ...item,
+            isPass: true
+          }
+        }else {
+          return {
+            ...item,
+            isPass: false
+          }
+        }
+
+      })
+      setFileList(data)
+    }
+  }
     return(
         <div className={styles.searchWrapper}>
             <div style={{margin:10}}>
@@ -94,7 +107,7 @@ const SearchBar = (props) =>{
             <div style={{margin:10}}>
               <NameSelection nameState={nameState} setName={setName} nameList={nameList} setNameList={setNameList} />
             </div>
-            <div style={{margin:10}}><Button onClick={()=>checkPicture(selectStyle,selectType,fileList,setResult,size,sizeListState,nameList)}>開始檢測</Button></div>
+            <div style={{margin:10}}><Button onClick={checkPicture}>開始檢測</Button></div>
         </div>
     )
 }

@@ -21,7 +21,6 @@ const NameSelection=({nameState,setName,nameList,setNameList})=> {
     });
   };
   const onNameSelect= (e) =>{
-    console.log(e)
     setNameList({...nameList, items: e})
   }
   return (
