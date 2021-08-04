@@ -3,42 +3,51 @@ import {Upload, message} from 'antd';
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 
-const dummyRequest = ({file, onSuccess}) => {
-  setTimeout(() => {
-    onSuccess("ok");
-  }, 0);
-};
 
 const UploadFun = (props) => {
-  const {fileList, setFileList} = props
+  const {fileList, setFileList, setImgWidth, setImgHeight} = props
 
-
-  const onChange = ({fileList: newFileList}) => {
-
-    setFileList(()=>{
-      return newFileList.map((item) => ({
-            ...item,
-            isPass: null
-          }
-        )
-      )
-    });
-  };
-
+  const onData = async file => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const img = new Image();
+      img.src = reader.result
+      img.onload = () => {
+        const e = {...file}
+        const naturalHeight = img.naturalHeight;
+        const naturalWidth = img.naturalWidth;
+        setImgWidth(naturalWidth)
+        setImgHeight(naturalHeight)
+        for (let key in file) {
+          e[key] = file[key]
+        }
+        e.isPass = null
+        e.widthHeight = `${naturalWidth} x ${naturalHeight}`
+        e.url = reader.result
+        setFileList(f => [...f, e])
+      }
+    }
+  }
+  const onRemove = ({uid}) => {
+    const i = fileList.findIndex(e => e.uid === uid)
+    if (i !== -1) {
+      setFileList(e => [...e.slice(0, i), ...e.slice(i + 1, e.length)])
+    }
+  }
 
   return (
     <div>
-      {/*<ImgCrop rotate>*/}
       <Upload
-        customRequest={dummyRequest}
+        // customRequest={dummyRequest}
         listType="picture-card"
+        data={onData}
         fileList={fileList}
-        onChange={onChange}
+        onRemove={onRemove}
         multiple
       >
         {fileList.length < 5 && '+ Upload'}
       </Upload>
-      {/*</ImgCrop>*/}
     </div>
   )
 }

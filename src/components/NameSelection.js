@@ -20,6 +20,15 @@ const NameSelection=({nameState,setName,nameList,setNameList})=> {
       name: '',
     });
   };
+
+  const removeItem = () => {
+    setName({
+      ...nameState,
+      items: [],
+      name: '',
+    });
+  }
+
   const onNameSelect= (e) =>{
     setNameList({...nameList, items: e})
   }
@@ -35,12 +44,15 @@ const NameSelection=({nameState,setName,nameList,setNameList})=> {
           <Divider style={{ margin: '4px 0' }} />
           <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
             <Input style={{ flex: 'auto' }} value={name} onChange={onNameChange} />
-            <a
-              style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
-              onClick={addItem}
-            >
-              <PlusOutlined /> Add item
-            </a>
+            <div style={{flexDirection:'column'}}>
+              <a
+                onClick={addItem}
+              >
+                <PlusOutlined />新增命名
+              </a>
+              <a style={{marginLeft:14}} onClick={removeItem}>清除命名</a>
+            </div>
+
           </div>
         </div>
       )}
