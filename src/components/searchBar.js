@@ -9,12 +9,9 @@ import UploadFun from "./Upload";
 const { Option } = Select;
 
 
-
-
-
 const SearchBar = (props) =>{
 
-    const {fileList,setFileList, state, stateStyle, sizeListState, nameState, setName, nameList, setNameList,imgHeight,imgWidth} = props
+    const {fileList,setFileList, state, stateStyle, sizeListState, nameState, setName, nameList, setNameList,imgHeight,imgWidth,getSize} = props
     const [selectStyle, setSelectStyle] = useState('')
     const [selectType, setSelectType] = useState('')
     const [size, sizeSelect] = useState('')
@@ -27,7 +24,7 @@ const SearchBar = (props) =>{
 
     let getRule = rule[''+selectStyle + selectType]
 
-
+    console.log(getSize)
     if(fileList.length <= 0){
       message.error('請先上傳照片')
     }else {
@@ -35,17 +32,17 @@ const SearchBar = (props) =>{
         let getName = items.filter(name => {
           return item.name.includes(name)
         })
-
         let getRuleName = sizeListState.filter(item=> {
           return item.id === size
         })
-        console.log(getRule[getRuleName[0].name])
-        if(getName.length && typeof getRule === 'object' && (getRule[getRuleName[0].name] === imgHeight * imgWidth)){
+        if(getName.length && typeof getRule === 'object' && (getRule[getRuleName[0].name] === getSize[idx].calWidthHeight)){
+          console.log(getName,'有大小')
           return {
             ...item,
             isPass:true
           }
         }else if(getName.length && getRuleName.length === 0){
+          console.log(getName,'沒有大小')
           if(getRule === imgHeight * imgWidth)
           return {
             ...item,
@@ -56,6 +53,7 @@ const SearchBar = (props) =>{
             isPass:false
           }
         }else {
+          console.log(getName,'都不符合')
           return {
             ...item,
             isPass: false

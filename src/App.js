@@ -29,6 +29,7 @@ function App() {
     const [nameList, setNameList] = useState([])
     const [imgWidth, setImgWidth] = useState('')
     const [imgHeight, setImgHeight] = useState('')
+    const [getSize, setSize] = useState([])
     useEffect(
         function () {
                 // setFileList(fileList);
@@ -45,12 +46,13 @@ function App() {
                        nameState={nameState} setName={setName}
                        nameList={nameList} setNameList={setNameList}
                        imgHeight={imgHeight} imgWidth={imgWidth}
+                       getSize={getSize}
 
             />
             <Table state={fileList} setState={setFileList} />
             <div className={styles.uploadWrapper}>
                 <UploadFun fileList={fileList} setFileList={setFileList} setImgWidth={setImgWidth}
-                           setImgHeight={setImgHeight} />
+                           setImgHeight={setImgHeight} setSize={setSize} getSize={getSize} />
             </div>
         </div>
     </div>

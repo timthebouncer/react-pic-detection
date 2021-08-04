@@ -18,14 +18,13 @@ const Table = (props) => {
         <tbody style={{textAlign: 'center'}}>
         {
           !!props.state.length && props.state.map(item => {
-            // console.log(item,'item')
             return (
               <tr key={item.uid}>
                 <td>{item?.name}</td>
-                <td>{item.widthHeight}</td>
-                <td>{item.type}</td>
+                <td>{item?.widthHeight}</td>
+                <td>{item?.type}</td>
                 {
-                  item.isPass !== null && item.isPass !== undefined &&
+                  item.isPass !== null &&
                   <td>{item.isPass ? <CheckOutlined/> : <CloseOutlined/>} </td>
                 }
 
